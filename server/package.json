@@ -1,0 +1,22 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "server for analytics dashboard - tanmay",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "test",
+    "start": "npx nodemon"
+  },
+  "author": "tanmay4u02",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "csv-parser": "^3.0.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.7.1",
+    "nodemon": "^3.1.7"
+  }
+}
