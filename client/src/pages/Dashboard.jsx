@@ -8,9 +8,20 @@ import LineChart from "../components/LineChart";
 import Filters from "../components/Filters";
 
 const Dashboard = () => {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams(window.location.search);
+  const [searchParams] = useSearchParams(
+    localStorage.getItem("analytics_filters") || window.location.search || ""
+  );
   const location = useLocation();
+
+  if (localStorage.getItem("analytics_filters")) {
+    const newurl =
+      window.location.protocol +
+      "//" +
+      window.location.host +
+      window.location.pathname +
+      localStorage.getItem("analytics_filters");
+    window.history.pushState({ path: newurl }, "", newurl);
+  }
 
   const { logout } = useContext(AuthContext);
 
@@ -32,14 +43,6 @@ const Dashboard = () => {
   );
 
   const feature = useRef("");
-
-  useEffect(() => {
-    const savedFilters = localStorage.getItem("analytics_filters");
-    if (savedFilters && searchParams.size === 0) {
-      navigate({ search: savedFilters });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     const fetchFilteredData = async () => {
