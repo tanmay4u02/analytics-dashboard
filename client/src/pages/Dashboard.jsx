@@ -9,7 +9,7 @@ import Filters from "../components/Filters";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams(window.location.search);
   const location = useLocation();
 
   const { logout } = useContext(AuthContext);

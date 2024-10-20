@@ -10,9 +10,11 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [isSignup, setIsSignup] = useState(false);
   const [error, setError] = useState(errorMessage);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       if (isSignup) {
@@ -28,6 +30,8 @@ const Login = () => {
       setError(
         "Error: " + (error.response?.data?.message || "Something went wrong")
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -66,8 +70,14 @@ const Login = () => {
             {error}
           </Typography>
         )}
-        <Button type="submit" variant="contained" color="primary" fullWidth>
-          {isSignup ? "Sign Up" : "Login"}
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          fullWidth
+          disabled={loading}
+        >
+          {loading ? "Loading..." : isSignup ? "Sign Up" : "Login"}
         </Button>
       </form>
 
