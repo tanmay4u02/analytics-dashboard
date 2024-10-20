@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "test": "test",
-    "start": "npx nodemon"
+    "dev": "npx nodemon",
+    "start": "node src/index.js"
   },
   "author": "tanmay4u02",
   "license": "ISC",
