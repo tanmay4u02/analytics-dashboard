@@ -1,5 +1,5 @@
 import { Typography, Button, Container, useMediaQuery } from "@mui/material";
-import { BarChart } from "@mui/x-charts";
+import { BarChart, blueberryTwilightPalette } from "@mui/x-charts";
 import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import axios from "../config/axios";
@@ -87,8 +87,8 @@ const Dashboard = () => {
     }
   };
 
-  const isLargeScreen = useMediaQuery("(min-width:600px)");
-  // const isMediumScreen = useMediaQuery("(min-width:650px)");
+  const isLargeScreen = useMediaQuery("(min-width:1024px)");
+  const isMediumScreen = useMediaQuery("(min-width:650px)");
 
   return (
     <Container sx={{ px: 1, py: 3 }}>
@@ -130,7 +130,7 @@ const Dashboard = () => {
         <div
           style={{
             minWidth: "21rem",
-            width: isLargeScreen ? "35%" : "90%",
+            width: isLargeScreen ? "35%" : isMediumScreen ? "80%" : "90%",
             padding: "5px 0px",
           }}
         >
@@ -139,11 +139,20 @@ const Dashboard = () => {
             loading={loadingBarData}
             dataset={barData}
             series={[{ dataKey: "timeTaken", label: "Feature" }]}
+            layout="horizontal"
+            grid={{ vertical: true }}
+            onItemClick={onBarClick}
+            height={300}
+            style={{ height: "100%" }}
             yAxis={[
               {
                 scaleType: "band",
                 dataKey: "feature",
                 reverse: true,
+                colorMap: {
+                  type: "ordinal",
+                  colors: blueberryTwilightPalette(),
+                },
               },
             ]}
             xAxis={[
@@ -151,17 +160,12 @@ const Dashboard = () => {
                 label: "total time spent",
               },
             ]}
-            layout="horizontal"
-            grid={{ vertical: true }}
-            onItemClick={onBarClick}
-            height={300}
-            style={{ height: "100%" }}
           />
         </div>
 
         <div
           style={{
-            width: isLargeScreen ? "60%" : "90%",
+            width: isLargeScreen ? "60%" : isMediumScreen ? "80%" : "90%",
             minWidth: "20rem",
             padding: "5px 3px",
           }}
