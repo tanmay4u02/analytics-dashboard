@@ -1,4 +1,4 @@
-import { Typography, Button, Container } from "@mui/material";
+import { Typography, Button, Container, useMediaQuery } from "@mui/material";
 import { BarChart } from "@mui/x-charts";
 import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
@@ -87,6 +87,9 @@ const Dashboard = () => {
     }
   };
 
+  const isLargeScreen = useMediaQuery("(min-width:600px)");
+  // const isMediumScreen = useMediaQuery("(min-width:650px)");
+
   return (
     <Container sx={{ px: 1, py: 3 }}>
       <Typography variant="h4" gutterBottom>
@@ -120,11 +123,17 @@ const Dashboard = () => {
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "space-around",
-          rowGap: "1rem",
+          rowGap: "4rem",
           marginTop: "4rem",
         }}
       >
-        <div style={{ minWidth: "20rem", width: "35%", padding: "5px 0px" }}>
+        <div
+          style={{
+            minWidth: "21rem",
+            width: isLargeScreen ? "35%" : "90%",
+            padding: "5px 0px",
+          }}
+        >
           <Typography variant="h6">Features Total Time Spent</Typography>
           <BarChart
             loading={loadingBarData}
@@ -152,7 +161,7 @@ const Dashboard = () => {
 
         <div
           style={{
-            width: "60%",
+            width: isLargeScreen ? "60%" : "90%",
             minWidth: "20rem",
             padding: "5px 3px",
           }}
@@ -172,7 +181,7 @@ const Dashboard = () => {
           variant="contained"
           color="secondary"
           onClick={logout}
-          sx={{ marginTop: "5rem" }}
+          sx={{ marginTop: "3rem" }}
         >
           Logout
         </Button>

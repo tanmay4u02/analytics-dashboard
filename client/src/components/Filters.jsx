@@ -2,6 +2,7 @@ import { Button, MenuItem, Stack, TextField } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import DateRangeSelect from "./DateRangeSelect";
+import ShareButton from "./ShareButton";
 
 const Filters = ({
   ageFilter,
@@ -38,24 +39,26 @@ const Filters = ({
     <Stack
       direction="row"
       spacing={2}
-      justifyContent={"space-between"}
+      justifyContent="space-between"
       mb={2}
       flexWrap="wrap"
       marginTop="2rem"
       rowGap="1rem"
+      alignItems="center"
     >
       <Stack
         direction="row"
         spacing={2}
         flexWrap="wrap"
         justifyContent="space-around"
-        rowGap="1rem"
+        rowGap="1.5rem"
       >
         <TextField
           value={ageFilter}
           select
           label="Age"
           onChange={(e) => setAgeFilter(e.target.value)}
+          size="small"
           sx={{ minWidth: "8rem" }}
         >
           <MenuItem value="All">All</MenuItem>
@@ -68,6 +71,7 @@ const Filters = ({
           select
           label="Gender"
           onChange={(e) => setGenderFilter(e.target.value)}
+          size="small"
           sx={{ minWidth: "8rem" }}
         >
           <MenuItem value="All">All</MenuItem>
@@ -91,9 +95,7 @@ const Filters = ({
         </Button>
       </Stack>
       <div style={{ marginLeft: "auto", marginTop: "0.5rem" }}>
-        <Button variant="outlined" color="primary">
-          Share Dashboard
-        </Button>
+        <ShareButton />
       </div>
     </Stack>
   );

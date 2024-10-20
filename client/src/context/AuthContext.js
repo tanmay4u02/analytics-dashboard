@@ -1,6 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 import React, { createContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext();
 
@@ -8,7 +8,9 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [errorMessage, setErrorMessage] = useState(null);
+
   const navigate = useNavigate();
+  const location = useLocation();
 
   const checkTokenExpiry = () => {
     if (token) {
@@ -56,7 +58,11 @@ export const AuthProvider = ({ children }) => {
 
     const decodedToken = jwtDecode(token);
     setUser({ userId: decodedToken.userId });
-    navigate("/dashboard");
+
+    const from = `${location.state?.from?.pathname || "/dashboard"}${
+      location.state?.from?.search || ""
+    }`;
+    navigate(from, { replace: true });
   };
 
   const logout = () => {

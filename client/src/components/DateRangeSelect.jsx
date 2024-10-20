@@ -1,7 +1,7 @@
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 
-import { Popover, TextField } from "@mui/material";
+import { Popover, TextField, useMediaQuery } from "@mui/material";
 import React, { useRef, useState } from "react";
 import { DateRangePicker } from "react-date-range";
 
@@ -15,6 +15,8 @@ const DateRangeSelect = ({ startDate, endDate, setStartDate, setEndDate }) => {
     setStartDate(ranges.selection.startDate);
     setEndDate(ranges.selection.endDate);
   };
+
+  const isLargeScreen = useMediaQuery("(min-width:470px)");
 
   return (
     <>
@@ -37,7 +39,11 @@ const DateRangeSelect = ({ startDate, endDate, setStartDate, setEndDate }) => {
             event.target.blur();
           }
         }}
-        sx={{ minWidth: "15rem" }}
+        size="small"
+        sx={{
+          minWidth: "15rem",
+          ...(!isLargeScreen && { width: "75%", margin: "0px! important" }),
+        }}
       />
 
       <Popover
