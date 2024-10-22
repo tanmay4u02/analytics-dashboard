@@ -9,18 +9,15 @@ import Filters from "../components/Filters";
 
 const Dashboard = () => {
   const [searchParams] = useSearchParams(
-    localStorage.getItem("analytics_filters") || window.location.search || ""
+    window.location.search || localStorage.getItem("analytics_filters") || ""
   );
   const location = useLocation();
 
-  if (localStorage.getItem("analytics_filters")) {
-    const newurl =
-      window.location.protocol +
-      "//" +
-      window.location.host +
-      window.location.pathname +
-      localStorage.getItem("analytics_filters");
-    window.history.pushState({ path: newurl }, "", newurl);
+  if (
+    window.location.search === "" &&
+    localStorage.getItem("analytics_filters")
+  ) {
+    window.location.search = localStorage.getItem("analytics_filters");
   }
 
   const { logout } = useContext(AuthContext);
