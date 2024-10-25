@@ -82,7 +82,6 @@ const Login = () => {
       </form>
 
       <Link
-        href="#"
         onClick={() => setIsSignup(!isSignup)}
         style={{ display: "block", marginTop: "1rem", textAlign: "center" }}
       >

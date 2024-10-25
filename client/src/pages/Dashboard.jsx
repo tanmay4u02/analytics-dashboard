@@ -3,7 +3,7 @@ import { BarChart, blueberryTwilightPalette } from "@mui/x-charts";
 import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import axios from "../config/axios";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import LineChart from "../components/LineChart";
 import Filters from "../components/Filters";
 
@@ -12,13 +12,16 @@ const Dashboard = () => {
     window.location.search || localStorage.getItem("analytics_filters") || ""
   );
   const location = useLocation();
+  const navigate = useNavigate();
 
-  if (
-    window.location.search === "" &&
-    localStorage.getItem("analytics_filters")
-  ) {
-    window.location.search = localStorage.getItem("analytics_filters");
-  }
+  useEffect(() => {
+    if (
+      window.location.search === "" &&
+      localStorage.getItem("analytics_filters")
+    ) {
+      navigate({ search: localStorage.getItem("analytics_filters") });
+    }
+  }, [navigate]);
 
   const { logout } = useContext(AuthContext);
 
